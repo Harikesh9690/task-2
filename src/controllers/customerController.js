@@ -1,39 +1,43 @@
-const customerModel= require('../models/customerModel')
+const customerModel = require('../models/customerModel')
 
 
-const customer= async function(req,res){
-    try{
+const customer = async function (req, res) {
+    try {
 
 
-    let data=req.body
+        let data = req.body
 
-    let customerData= await customerModel.create(data)
-        
-       return res.status(201).send({status:true, data:customerData})
+        let customerData = await customerModel.create(data)
 
-
-    
-  }
-    catch(err){
-return res.status(500).send({status:false,msg:err.message})
+        return res.status(201).send({ status: true, data: customerData })
+    }
+    catch (err) {
+        return res.status(500).send({ status: false, msg: err.message })
     }
 }
 
 
-const getData = async function(req,res){
-    try{
+const getData = async function (req, res) {
+    try {
 
-let data= req.body
+        let customerData = await customerModel.find({status: 'ACTIVE'})
 
-
-let customerData= await customerModel.find()
-res.status(200).send({status:true, data:customerData})
-
-
-
-
+        return res.status(200).send({ status: true, data: customerData })
     }
-    catch(err){
-        return res.status(500).send({status:false, msg:err.message})
+    catch (err) {
+        return res.status(500).send({ status: false, msg: err.message })
     }
 }
+
+const deleteCustmer = async function(req, res){
+        try {
+            let CoustmerID = req.params
+            let customerData = await customerModel.findByIdAndUpdate({_id: CoustmerID},{$set: {status: "INACTIVE"}})
+            return res.status(200).send({ status: true, msg: "deleted succesfully"})
+        } catch (err) {
+            return res.status(500).send({ status: false, msg: err.message })
+        }
+}
+
+
+module.exports = {customer, getData, deleteCustmer}
