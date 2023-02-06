@@ -10,7 +10,7 @@ const createCard  = async function(req, res){
   }
 }
 
-const getData = async function(req, res){
+const getCardData = async function(req, res){
     try {
         let data = await cardModal.find()
         return res.status(201).send({status: true, data: data})
@@ -19,4 +19,4 @@ const getData = async function(req, res){
     }
 }
 
-module.exports = {createCard, getData}
+module.exports = {createCard, getCardData}
