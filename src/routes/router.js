@@ -6,5 +6,6 @@ const {customer, getData, deleteCustmer} = require('../controllers/customerContr
  route.get('/CoustmerList', getData)
  route.delete('/CreateCoustmer/:custmerID', customer)
 
+route.post('/createCard', )
 
 module.exports=route;
